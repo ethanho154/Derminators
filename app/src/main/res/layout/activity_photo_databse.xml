@@ -15,6 +15,7 @@
     android:layout_marginStart="172dp"
     android:layout_marginTop="79dp"
     android:clickable="true"
+    android:onClick=""
     app:layout_constraintBottom_toBottomOf="parent"
     app:layout_constraintEnd_toEndOf="parent"
     app:layout_constraintStart_toStartOf="parent"

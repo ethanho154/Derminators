@@ -14,9 +14,9 @@
 
     <string name="pref_title_add_friends_to_messages">End Date: </string>
     <string-array name="pref_example_list_titles">
-        <item>fix this </item>
-        <item>fix this </item>
-        <item>fix this </item>
+        <item>1st week </item>
+        <item>2nd week </item>
+        <item>3rd week </item>
     </string-array>
     <string-array name="pref_example_list_values">
         <item>1</item>
@@ -66,10 +66,10 @@
 
     <string name="pref_title_new_message_notifications">Use default settings</string>
 
-    <string name="pref_title_ringtone">Ringtone</string>
-    <string name="pref_ringtone_silent">Silent</string>
+    <string name="pref_title_ringtone">Manual Size Range Adjustment</string>
+    <string name="pref_ringtone_silent">5mm-15mm</string>
 
-    <string name="pref_title_vibrate">Vibrate</string>
+    <string name="pref_title_vibrate">Fix mole size to 10mm diameter</string>
     <string name="title_activity_login">Sign in</string>
 
     <!-- Strings related to login -->

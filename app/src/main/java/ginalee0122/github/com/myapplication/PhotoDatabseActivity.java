@@ -6,7 +6,10 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.module.AppGlideModule;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
@@ -21,16 +24,21 @@ import java.io.IOException;
 
 public class PhotoDatabseActivity extends AppCompatActivity {
 
-  @Override
-  protected void onCreate(Bundle savedInstanceState) {
-      super.onCreate(savedInstanceState);
-      setContentView(R.layout.activity_photo_databse);
-      FirebaseAuth mAuth = FirebaseAuth.getInstance();
-      mAuth.signInAnonymously();
-      Log.d("signed in anonymously", "starting all the good shit");
-      allTheGoodShit();
-  }
+    private FirebaseAuth mAuth;
+    private AppGlideModule glideModule;
 
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_photo_databse);
+        mAuth = FirebaseAuth.getInstance();
+        glideModule = new AppGlideModule() {
+        };
+        Log.d("on create", "before anonymous signing");
+        mAuth.signInAnonymously();
+        Log.d("signed in anonymously", "starting all the good shit");
+        allTheGoodShit();
+    }
 
   private void allTheGoodShit() {
     Button mybutton = (Button) findViewById(R.id.button2);
@@ -40,11 +48,31 @@ public class PhotoDatabseActivity extends AppCompatActivity {
         Log.d("please work", "button clicked");
         StorageReference mStorageRef;
         mStorageRef = FirebaseStorage.getInstance().getReference();
-          Log.d("mStorageRef", "detected??");
-        //FromUrl("gs://bme590project.appspot.com/webcam/cam1-2019-03-01-015451.jpg");
-        //System.out.println("accessed Firebase Storage");
+        Log.d("mStorageRef", "detected!");
 
-        try {
+          // ImageView in your Activity
+          ImageView top = findViewById(R.id.imageView1);
+          ImageView middle = findViewById(R.id.imageView2);
+          ImageView bottom = findViewById(R.id.imageView3);
+          Glide.with(PhotoDatabseActivity.this)
+                  .load(mStorageRef.child("webcam/cam2-2019-03-01-083802.jpg"))
+                  .override(500, 500)
+                  .into(top);
+          Glide.with(PhotoDatabseActivity.this)
+                  .load(mStorageRef.child("webcam/cam1-2019-03-01-083802.jpg"))
+                  .into(middle);
+          Glide.with(PhotoDatabseActivity.this)
+                  .load(mStorageRef.child("webcam/cam3-2019-03-01-083802.jpg"))
+                  .into(bottom);
+
+
+          Log.d("glide coming thru", "wala");
+
+
+
+
+
+          try {
           File localFile = File.createTempFile("images", "jpg");
           mStorageRef.getFile(localFile)
             .addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {

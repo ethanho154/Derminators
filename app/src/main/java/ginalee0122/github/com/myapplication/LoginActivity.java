@@ -3,6 +3,7 @@ package ginalee0122.github.com.myapplication;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
@@ -30,9 +31,9 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import static android.Manifest.permission.READ_CONTACTS;
@@ -44,9 +45,6 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
   FirebaseAuth mAuth = FirebaseAuth.getInstance();
 
-  /**
-   * Id to identity READ_CONTACTS permission request.
-   */
   private static final int REQUEST_READ_CONTACTS = 0;
 
   /**
@@ -61,6 +59,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
    */
   private UserLoginTask mAuthTask = null;
 
+
   // UI references.
   private AutoCompleteTextView mEmailView;
   private EditText mPasswordView;
@@ -72,7 +71,16 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
-    setContentView(R.layout.activity_login);
+
+    FirebaseUser currentUser = mAuth.getCurrentUser();
+    currentUser = null;
+    if (currentUser != null) {
+      startActivity(new Intent(LoginActivity.this, PhotoDatabseActivity.class));
+    }
+
+    else {
+      setContentView(R.layout.activity_login);
+    }
 
 
 

@@ -71,21 +71,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
-
-    FirebaseUser currentUser = mAuth.getCurrentUser();
-    currentUser = null;
-    if (currentUser != null) {
-      startActivity(new Intent(LoginActivity.this, PhotoDatabseActivity.class));
-    }
-
-    else {
-      setContentView(R.layout.activity_login);
-    }
-
-
-
-
-
+    setContentView(R.layout.activity_login);
 
     // Set up the login form.
     mEmailView = (AutoCompleteTextView) findViewById(R.id.email);
@@ -354,7 +340,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
       showProgress(false);
 
       if (success) {
-        finish();
+        startActivity(new Intent(LoginActivity.this, MenuActivity.class));
+        //finish();
       } else {
         mPasswordView.setError(getString(R.string.error_incorrect_password));
         mPasswordView.requestFocus();

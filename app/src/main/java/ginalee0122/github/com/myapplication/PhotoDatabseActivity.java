@@ -56,7 +56,6 @@ public class PhotoDatabseActivity extends AppCompatActivity {
           ImageView bottom = findViewById(R.id.imageView3);
           Glide.with(PhotoDatabseActivity.this)
                   .load(mStorageRef.child("webcam/cam2-2019-03-01-083802.jpg"))
-                  .override(500, 500)
                   .into(top);
           Glide.with(PhotoDatabseActivity.this)
                   .load(mStorageRef.child("webcam/cam1-2019-03-01-083802.jpg"))

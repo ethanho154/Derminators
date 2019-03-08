@@ -17,11 +17,11 @@
       android:visibility="visible"
       app:layout_constraintBottom_toTopOf="@+id/button2"
       app:layout_constraintEnd_toEndOf="parent"
-      app:layout_constraintHorizontal_bias="0.468"
+      app:layout_constraintHorizontal_bias="0.481"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toTopOf="parent"
-      app:layout_constraintVertical_bias="0.931"
-      app:srcCompat="@drawable/common_google_signin_btn_icon_light_normal_background" />
+      app:layout_constraintVertical_bias="0.918"
+      app:srcCompat="@drawable/cast_ic_notification_2" />
 
   <EditText
       android:id="@+id/editText"
@@ -71,7 +71,7 @@
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toTopOf="parent"
       app:layout_constraintVertical_bias="0.471"
-      app:srcCompat="@drawable/common_google_signin_btn_icon_light_normal_background" />
+      app:srcCompat="@drawable/cast_ic_notification_2" />
 
   <ImageView
       android:id="@+id/imageView1"
@@ -88,6 +88,6 @@
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toTopOf="parent"
       app:layout_constraintVertical_bias="0.0"
-      app:srcCompat="@drawable/common_google_signin_btn_icon_light_normal_background" />
+      app:srcCompat="@drawable/cast_ic_notification_2" />
 
 </android.support.constraint.ConstraintLayout>

@@ -1,6 +1,12 @@
 package ginalee0122.github.com.myapplication;
 
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.os.Environment;
+import android.provider.ContactsContract;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -9,7 +15,10 @@ import android.widget.Button;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.module.AppGlideModule;
+import com.bumptech.glide.request.target.SimpleTarget;
+import com.bumptech.glide.request.transition.Transition;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
@@ -18,14 +27,18 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.Random;
+import java.util.concurrent.ExecutionException;
 
-
-
-public class PhotoDatabseActivity extends AppCompatActivity {
+public class PhotoDatabaseActivity extends AppCompatActivity {
 
     private FirebaseAuth mAuth;
     private AppGlideModule glideModule;
+
+    private byte[] byteArray;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,16 +50,16 @@ public class PhotoDatabseActivity extends AppCompatActivity {
         Log.d("on create", "before anonymous signing");
         mAuth.signInAnonymously();
         Log.d("signed in anonymously", "starting all the good shit");
-        allTheGoodShit();
+        loadImages();
     }
 
-  private void allTheGoodShit() {
+  private void loadImages() {
     Button mybutton = (Button) findViewById(R.id.button2);
     mybutton.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View v) {
         Log.d("please work", "button clicked");
-        StorageReference mStorageRef;
+        final StorageReference mStorageRef;
         mStorageRef = FirebaseStorage.getInstance().getReference();
         Log.d("mStorageRef", "detected!");
 
@@ -54,21 +67,33 @@ public class PhotoDatabseActivity extends AppCompatActivity {
           ImageView top = findViewById(R.id.imageView1);
           ImageView middle = findViewById(R.id.imageView2);
           ImageView bottom = findViewById(R.id.imageView3);
-          Glide.with(PhotoDatabseActivity.this)
+
+//          String msg = (topBytes == null || topBytes.length == 0) ? "load unsuccessful" : "load successful";
+//          Log.d("byte array", msg);
+
+          Glide.with(PhotoDatabaseActivity.this)
                   .load(mStorageRef.child("webcam/cam2-2019-03-01-083802.jpg"))
                   .into(top);
-          Glide.with(PhotoDatabseActivity.this)
+          Glide.with(PhotoDatabaseActivity.this)
                   .load(mStorageRef.child("webcam/cam1-2019-03-01-083802.jpg"))
                   .into(middle);
-          Glide.with(PhotoDatabseActivity.this)
+          Glide.with(PhotoDatabaseActivity.this)
                   .load(mStorageRef.child("webcam/cam3-2019-03-01-083802.jpg"))
                   .into(bottom);
 
 
           Log.d("glide coming thru", "wala");
 
+          top.setOnClickListener(new View.OnClickListener() {
+              @Override
+              public void onClick(View v) {
+                  storeImage(mStorageRef);
 
-
+                  Intent intent = new Intent(PhotoDatabaseActivity.this, MarkImageActivity.class);
+                  intent.putExtra("picture", byteArray);
+                  startActivity(intent);
+              }
+          });
 
 
           try {
@@ -96,9 +121,21 @@ public class PhotoDatabseActivity extends AppCompatActivity {
     });
   }
 
+  private byte[] storeImage(StorageReference mStorageRef) {
+          StorageReference topRef = mStorageRef.child("webcam/cam2-2019-03-01-083802.jpg");
 
+          final long ONE_MEGABYTE = 1024*1024;
+          topRef.getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
+              @Override
+              public void onSuccess(byte[] bytes) {
+                  byteArray = bytes;
+              }
+          }).addOnFailureListener(new OnFailureListener() {
+              @Override
+              public void onFailure(@NonNull Exception exception) {
+              }
+          });
 
-
-
-
+          return byteArray;
+  }
 }

@@ -1,4 +1,4 @@
-package ginalee0122.github.com.myapplication;
+package ginalee0122.github.com.derminosity;
 
 import android.content.Intent;
 import android.os.Bundle;

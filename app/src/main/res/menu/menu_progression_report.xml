@@ -1,7 +1,7 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:app="http://schemas.android.com/apk/res-auto"
   xmlns:tools="http://schemas.android.com/tools"
-  tools:context="ginalee0122.github.com.myapplication.ProgressionReportActivity">
+  tools:context="ginalee0122.github.com.derminosity.ProgressionReportActivity">
   <item
     android:id="@+id/action_settings"
     android:orderInCategory="100"

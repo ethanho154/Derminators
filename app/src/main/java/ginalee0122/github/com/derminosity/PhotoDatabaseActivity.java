@@ -1,4 +1,4 @@
-package ginalee0122.github.com.myapplication;
+package ginalee0122.github.com.derminosity;
 
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -38,7 +38,7 @@ public class PhotoDatabaseActivity extends AppCompatActivity implements View.OnC
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_photo_databse);
+        setContentView(R.layout.activity_photo_database);
 
         initializeViews();
 

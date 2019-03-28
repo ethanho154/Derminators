@@ -79,6 +79,7 @@ public class LoginActivity extends AppCompatActivity implements OnClickListener 
     mProgressView = findViewById(R.id.login_progress);
 
     signUpView = findViewById(R.id.sign_up_text);
+    signUpView.setOnClickListener(this);
 //    initializeSignUp();
   }
 
@@ -192,35 +193,57 @@ public class LoginActivity extends AppCompatActivity implements OnClickListener 
   }
 
   private void signIn() {
-      String email = mEmailView.getText().toString();
-      String password = mPasswordView.getText().toString();
+    String email = mEmailView.getText().toString();
+    String password = mPasswordView.getText().toString();
 
       // Show a progress spinner, and kick off a background task to
       // perform the user login attempt.
-      if (validateFields(email, password)) {
-          showProgress(true);
-          mAuth.signInWithEmailAndPassword(email, password)
-                  .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                      @Override
-                      public void onComplete(@NonNull Task<AuthResult> task) {
-                          if (task.isSuccessful()) {
-                              // Sign in success, update UI with the signed-in user's information
-                              Log.d("Login attempt", "signInWithEmail:success");
-                              FirebaseUser user = mAuth.getCurrentUser();
-                          } else {
-                              // If sign in fails, display a message to the user.
-                              Log.w("Login attempt", "signInWithEmail:failure", task.getException());
-                              Toast.makeText(LoginActivity.this, "Authentication failed.",
-                                      Toast.LENGTH_SHORT).show();
-                          }
-                          showProgress(false);
-                      }
-          });
-      }
+    if (validateFields(email, password)) {
+        showProgress(true);
+        mAuth.signInWithEmailAndPassword(email, password)
+        .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+            @Override
+            public void onComplete(@NonNull Task<AuthResult> task) {
+                if (task.isSuccessful()) {
+                    // Sign in success, update UI with the signed-in user's information
+                    Log.d("Login attempt", "signInWithEmail:success");
+                    FirebaseUser user = mAuth.getCurrentUser();
+                } else {
+                    // If sign in fails, display a message to the user.
+                    Log.w("Login attempt", "signInWithEmail:failure", task.getException());
+                    Toast.makeText(LoginActivity.this, "Authentication failed.",
+                    Toast.LENGTH_SHORT).show();
+                }
+                showProgress(false);
+            }
+        });
+    }
   }
 
   private void createAccount() {
+    String email = mEmailView.getText().toString();
+    String password = mPasswordView.getText().toString();
 
+    if (validateFields(email, password)) {
+        showProgress(true);
+        mAuth.createUserWithEmailAndPassword(email, password)
+        .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+            @Override
+            public void onComplete(@NonNull Task<AuthResult> task) {
+                if (task.isSuccessful()) {
+                    // Sign in success, update UI with the signed-in user's information
+                    Log.d("Signup attempt", "createUserWithEmail:success");
+                    FirebaseUser user = mAuth.getCurrentUser();
+                } else {
+                    // If sign in fails, display a message to the user.
+                    Log.w("Signup attempt", "createUserWithEmail:failure", task.getException());
+                    Toast.makeText(LoginActivity.this, "Authentication failed.",
+                    Toast.LENGTH_SHORT).show();
+                }
+                showProgress(false);
+            }
+        });
+    }
   }
 
   /**
@@ -307,6 +330,9 @@ public class LoginActivity extends AppCompatActivity implements OnClickListener 
         int i = v.getId();
         if (i == R.id.email_sign_in_button) {
             signIn();
+        }
+        if (i == R.id.sign_up_text) {
+            createAccount();
         }
     }
 

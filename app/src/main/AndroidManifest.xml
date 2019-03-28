@@ -39,6 +39,11 @@
         <activity
             android:name=".ProgressionReportActivity"
             android:label="@string/title_activity_progression_report"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".DetectorActivity" />
+        <activity
+            android:name=".ManualActivity"
+            android:label="@string/title_activity_manual"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 

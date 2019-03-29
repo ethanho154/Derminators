@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package org.tensorflow.demo;
+package ginalee0122.github.com.myapplication;
 
 import android.graphics.Bitmap;
 import android.graphics.Bitmap.Config;

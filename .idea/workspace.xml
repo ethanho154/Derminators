@@ -14,28 +14,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="01561940-5595-4c50-a25c-076648195d2d" name="Default" comment="">
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/ginalee0122/github/com/myapplication/ManualActivity.java" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_manual.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/layout/content_manual.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/menu/menu_manual.xml" />
-      <change beforePath="$PROJECT_DIR$/.gradle/4.4/fileHashes/fileHashes.bin" afterPath="$PROJECT_DIR$/.gradle/4.4/fileHashes/fileHashes.bin" />
-      <change beforePath="$PROJECT_DIR$/.gradle/4.4/fileHashes/fileHashes.lock" afterPath="$PROJECT_DIR$/.gradle/4.4/fileHashes/fileHashes.lock" />
-      <change beforePath="$PROJECT_DIR$/.gradle/4.4/fileHashes/resourceHashesCache.bin" afterPath="$PROJECT_DIR$/.gradle/4.4/fileHashes/resourceHashesCache.bin" />
-      <change beforePath="$PROJECT_DIR$/.gradle/4.4/javaCompile/classAnalysis.bin" afterPath="$PROJECT_DIR$/.gradle/4.4/javaCompile/classAnalysis.bin" />
-      <change beforePath="$PROJECT_DIR$/.gradle/4.4/javaCompile/jarAnalysis.bin" afterPath="$PROJECT_DIR$/.gradle/4.4/javaCompile/jarAnalysis.bin" />
-      <change beforePath="$PROJECT_DIR$/.gradle/4.4/javaCompile/javaCompile.lock" afterPath="$PROJECT_DIR$/.gradle/4.4/javaCompile/javaCompile.lock" />
-      <change beforePath="$PROJECT_DIR$/.gradle/4.4/javaCompile/taskHistory.bin" afterPath="$PROJECT_DIR$/.gradle/4.4/javaCompile/taskHistory.bin" />
-      <change beforePath="$PROJECT_DIR$/.gradle/4.4/javaCompile/taskJars.bin" afterPath="$PROJECT_DIR$/.gradle/4.4/javaCompile/taskJars.bin" />
-      <change beforePath="$PROJECT_DIR$/.gradle/4.4/taskHistory/taskHistory.bin" afterPath="$PROJECT_DIR$/.gradle/4.4/taskHistory/taskHistory.bin" />
-      <change beforePath="$PROJECT_DIR$/.gradle/4.4/taskHistory/taskHistory.lock" afterPath="$PROJECT_DIR$/.gradle/4.4/taskHistory/taskHistory.lock" />
-      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" />
-      <change beforePath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" afterPath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/app/app.iml" afterPath="$PROJECT_DIR$/app/app.iml" />
-      <change beforePath="$PROJECT_DIR$/app/build.gradle" afterPath="$PROJECT_DIR$/app/build.gradle" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" afterPath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/values/dimens.xml" afterPath="$PROJECT_DIR$/app/src/main/res/values/dimens.xml" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" afterPath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/ginalee0122/github/com/myapplication/DetectorActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/ginalee0122/github/com/myapplication/DetectorActivity.java" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -61,8 +40,8 @@
       <file leaf-file-name="LoginActivity.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/ginalee0122/github/com/myapplication/LoginActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="923">
-              <caret line="263" column="56" lean-forward="false" selection-start-line="263" selection-start-column="50" selection-end-line="263" selection-end-column="56" />
+            <state relative-caret-position="0">
+              <caret line="0" column="44" lean-forward="false" selection-start-line="0" selection-start-column="8" selection-end-line="0" selection-end-column="44" />
               <folding>
                 <element signature="e#10916#10960#0" expanded="true" />
               </folding>
@@ -83,7 +62,7 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ManualActivity.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="ManualActivity.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/ginalee0122/github/com/myapplication/ManualActivity.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="0">
@@ -96,20 +75,31 @@
       <file leaf-file-name="DetectorActivity.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/ginalee0122/github/com/myapplication/DetectorActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="142">
-              <caret line="39" column="24" lean-forward="false" selection-start-line="39" selection-start-column="24" selection-end-line="39" selection-end-column="24" />
+            <state relative-caret-position="266">
+              <caret line="14" column="3" lean-forward="true" selection-start-line="14" selection-start-column="3" selection-end-line="14" selection-end-column="3" />
               <folding>
-                <element signature="e#0#14675#0" expanded="true" />
-                <element signature="e#9495#9503#0" expanded="true" />
-                <element signature="e#11877#14327#0" expanded="true" />
-                <element signature="e#14326#14327#0" expanded="true" />
-                <element signature="e#14383#14384#0" expanded="true" />
-                <element signature="e#14450#14451#0" expanded="true" />
-                <element signature="e#14515#14516#0" expanded="true" />
-                <element signature="e#14558#14559#0" expanded="true" />
-                <element signature="e#14623#14624#0" expanded="true" />
-                <element signature="e#14672#14673#0" expanded="true" />
+                <element signature="e#0#14692#0" expanded="true" />
+                <element signature="imports" expanded="true" />
+                <element signature="e#9512#9520#0" expanded="true" />
+                <element signature="e#11894#14344#0" expanded="true" />
+                <element signature="e#14343#14344#0" expanded="true" />
+                <element signature="e#14400#14401#0" expanded="true" />
+                <element signature="e#14467#14468#0" expanded="true" />
+                <element signature="e#14532#14533#0" expanded="true" />
+                <element signature="e#14575#14576#0" expanded="true" />
+                <element signature="e#14640#14641#0" expanded="true" />
+                <element signature="e#14689#14690#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="CameraActivity.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/ginalee0122/github/com/myapplication/CameraActivity.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="76">
+              <caret line="5" column="13" lean-forward="false" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -159,19 +149,6 @@
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="574">
               <caret line="79" column="29" lean-forward="false" selection-start-line="79" selection-start-column="29" selection-end-line="79" selection-end-column="29" />
-              <folding />
-            </state>
-          </provider>
-          <provider editor-type-id="android-designer2">
-            <state />
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="activity_detector.xml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_detector.xml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="133">
-              <caret line="7" column="0" lean-forward="true" selection-start-line="7" selection-start-column="0" selection-end-line="7" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -2269,14 +2246,14 @@
         <option value="$PROJECT_DIR$/app/src/main/res/menu/activity_menu_drawer.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/menu/menu.xml" />
         <option value="$PROJECT_DIR$/app/build.gradle" />
-        <option value="$PROJECT_DIR$/app/src/main/java/ginalee0122/github/com/myapplication/DetectorActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/ginalee0122/github/com/myapplication/MenuActivity.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/ginalee0122/github/com/myapplication/DetectorActivity.java" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="54" />
-    <option name="y" value="33" />
+    <option name="x" value="34" />
+    <option name="y" value="63" />
     <option name="width" value="1361" />
     <option name="height" value="793" />
   </component>
@@ -2592,7 +2569,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="54" y="33" width="1361" height="793" extended-state="0" />
+    <frame x="34" y="63" width="1361" height="793" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Android Profiler" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -3037,50 +3014,11 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/ginalee0122/github/com/myapplication/CameraActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="76">
-          <caret line="5" column="13" lean-forward="false" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
-          <folding>
-            <element signature="imports" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/ginalee0122/github/com/myapplication/MenuActivity.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1232">
           <caret line="85" column="21" lean-forward="false" selection-start-line="85" selection-start-column="21" selection-end-line="85" selection-end-column="21" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/ginalee0122/github/com/myapplication/DetectorActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="142">
-          <caret line="39" column="24" lean-forward="false" selection-start-line="39" selection-start-column="24" selection-end-line="39" selection-end-column="24" />
-          <folding>
-            <element signature="e#0#14675#0" expanded="true" />
-            <element signature="e#9495#9503#0" expanded="true" />
-            <element signature="e#11877#14327#0" expanded="true" />
-            <element signature="e#14326#14327#0" expanded="true" />
-            <element signature="e#14383#14384#0" expanded="true" />
-            <element signature="e#14450#14451#0" expanded="true" />
-            <element signature="e#14515#14516#0" expanded="true" />
-            <element signature="e#14558#14559#0" expanded="true" />
-            <element signature="e#14623#14624#0" expanded="true" />
-            <element signature="e#14672#14673#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/ginalee0122/github/com/myapplication/LoginActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="923">
-          <caret line="263" column="56" lean-forward="false" selection-start-line="263" selection-start-column="50" selection-end-line="263" selection-end-column="56" />
-          <folding>
-            <element signature="e#10916#10960#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -3099,6 +3037,44 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/ginalee0122/github/com/myapplication/LoginActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="44" lean-forward="false" selection-start-line="0" selection-start-column="8" selection-end-line="0" selection-end-column="44" />
+          <folding>
+            <element signature="e#10916#10960#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/ginalee0122/github/com/myapplication/DetectorActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="266">
+          <caret line="14" column="3" lean-forward="true" selection-start-line="14" selection-start-column="3" selection-end-line="14" selection-end-column="3" />
+          <folding>
+            <element signature="e#0#14692#0" expanded="true" />
+            <element signature="imports" expanded="true" />
+            <element signature="e#9512#9520#0" expanded="true" />
+            <element signature="e#11894#14344#0" expanded="true" />
+            <element signature="e#14343#14344#0" expanded="true" />
+            <element signature="e#14400#14401#0" expanded="true" />
+            <element signature="e#14467#14468#0" expanded="true" />
+            <element signature="e#14532#14533#0" expanded="true" />
+            <element signature="e#14575#14576#0" expanded="true" />
+            <element signature="e#14640#14641#0" expanded="true" />
+            <element signature="e#14689#14690#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/ginalee0122/github/com/myapplication/CameraActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="76">
+          <caret line="5" column="13" lean-forward="false" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
           <folding />
         </state>
       </provider>

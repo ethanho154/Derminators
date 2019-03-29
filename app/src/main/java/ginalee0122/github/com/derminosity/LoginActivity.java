@@ -208,6 +208,7 @@ public class LoginActivity extends AppCompatActivity implements OnClickListener 
                     // Sign in success, update UI with the signed-in user's information
                     Log.d("Login attempt", "signInWithEmail:success");
                     FirebaseUser user = mAuth.getCurrentUser();
+                    startActivity(new Intent(LoginActivity.this, MenuActivity.class));
                 } else {
                     // If sign in fails, display a message to the user.
                     Log.w("Login attempt", "signInWithEmail:failure", task.getException());

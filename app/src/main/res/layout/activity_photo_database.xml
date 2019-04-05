@@ -7,20 +7,20 @@
   tools:context=".PhotoDatabaseActivity">
 
   <ImageView
-      android:id="@+id/imageView3"
+      android:id="@+id/botView"
       android:layout_width="240dp"
       android:layout_height="240dp"
-      android:layout_marginBottom="39dp"
-      android:layout_marginEnd="184dp"
       android:layout_marginStart="176dp"
       android:layout_marginTop="36dp"
+      android:layout_marginEnd="184dp"
+      android:layout_marginBottom="39dp"
       android:visibility="visible"
       app:layout_constraintBottom_toTopOf="@+id/button2"
       app:layout_constraintEnd_toEndOf="parent"
-      app:layout_constraintHorizontal_bias="0.481"
+      app:layout_constraintHorizontal_bias="0.465"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toTopOf="parent"
-      app:layout_constraintVertical_bias="0.918"
+      app:layout_constraintVertical_bias="0.915"
       app:srcCompat="@drawable/cast_ic_notification_2" />
 
   <EditText
@@ -57,13 +57,13 @@
       app:layout_constraintVertical_bias="1.0" />
 
   <ImageView
-      android:id="@+id/imageView2"
+      android:id="@+id/midView"
       android:layout_width="240dp"
       android:layout_height="240dp"
-      android:layout_marginBottom="39dp"
-      android:layout_marginEnd="184dp"
       android:layout_marginStart="176dp"
       android:layout_marginTop="36dp"
+      android:layout_marginEnd="184dp"
+      android:layout_marginBottom="39dp"
       android:visibility="visible"
       app:layout_constraintBottom_toTopOf="@+id/button2"
       app:layout_constraintEnd_toEndOf="parent"
@@ -74,13 +74,13 @@
       app:srcCompat="@drawable/cast_ic_notification_2" />
 
   <ImageView
-      android:id="@+id/imageView1"
+      android:id="@+id/topView"
       android:layout_width="240dp"
       android:layout_height="240dp"
-      android:layout_marginBottom="39dp"
-      android:layout_marginEnd="184dp"
       android:layout_marginStart="176dp"
       android:layout_marginTop="36dp"
+      android:layout_marginEnd="184dp"
+      android:layout_marginBottom="39dp"
       android:visibility="visible"
       app:layout_constraintBottom_toTopOf="@+id/button2"
       app:layout_constraintEnd_toEndOf="parent"

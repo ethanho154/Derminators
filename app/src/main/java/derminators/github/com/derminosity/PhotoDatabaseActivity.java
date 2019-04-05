@@ -1,4 +1,4 @@
-package ginalee0122.github.com.derminosity;
+package derminators.github.com.derminosity;
 
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -33,12 +33,18 @@ public class PhotoDatabaseActivity extends AppCompatActivity implements View.OnC
     private ImageView mid;
     private ImageView bot;
 
+    File directory;
+    File file = null;
+
     private AlertDialog.Builder builder;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_photo_database);
+
+        directory = this.getFilesDir();
+        Log.d("File path", directory.getAbsolutePath());
 
         initializeViews();
 
@@ -47,6 +53,7 @@ public class PhotoDatabaseActivity extends AppCompatActivity implements View.OnC
 
         glideModule = new AppGlideModule() {
         };
+
         Log.d("on create", "before anonymous signing");
         mAuth.signInAnonymously();
         Log.d("signed in anonymously", "starting all the good shit");
@@ -54,8 +61,8 @@ public class PhotoDatabaseActivity extends AppCompatActivity implements View.OnC
     }
 
     private void populateActivity() {
-        Button mybutton = findViewById(R.id.button2);
-        mybutton.setOnClickListener(new View.OnClickListener() {
+        Button downloadButton = findViewById(R.id.button2);
+        downloadButton.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
@@ -63,7 +70,7 @@ public class PhotoDatabaseActivity extends AppCompatActivity implements View.OnC
 
                 Log.d("mStorageRef", "detected!");
 
-                loadImage(mStorageRef);
+                downloadImage(mStorageRef);
 
                 try {
                 File localFile = File.createTempFile("images", "jpg");
@@ -116,17 +123,36 @@ public class PhotoDatabaseActivity extends AppCompatActivity implements View.OnC
         bot.setOnClickListener(this);
     }
 
-    private void loadImage(StorageReference mStorageRef) {
+    private void downloadImage(StorageReference mStorageRef) {
         Glide.with(PhotoDatabaseActivity.this)
-            .load(mStorageRef.child("webcam/cam2-2019-03-01-083802.jpg"))
+//            .load(mStorageRef.child("webcam/cam2-2019-03-01-083802.jpg"))
+            .load(mStorageRef.child("webcam/cam2.jpg"))
             .diskCacheStrategy(DiskCacheStrategy.DATA)
             .into(top);
+        file = new File(directory, "cam2.jpg");
+        mStorageRef.child("webcam/cam2.jpg").getFile(file).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
+            @Override
+            public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
+                Log.d("Save", "Success");
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Log.d("Save", "Fail");
+            }
+        });
+        for (File f : directory.listFiles()) {
+            System.out.println(f.getAbsolutePath());
+            System.out.println(f.getName());
+        }
         Glide.with(PhotoDatabaseActivity.this)
-            .load(mStorageRef.child("webcam/cam1-2019-03-01-083802.jpg"))
+//            .load(mStorageRef.child("webcam/cam1-2019-03-01-083802.jpg"))
+            .load(mStorageRef.child("webcam/cam1.jpg"))
             .diskCacheStrategy(DiskCacheStrategy.DATA)
             .into(mid);
         Glide.with(PhotoDatabaseActivity.this)
-            .load(mStorageRef.child("webcam/cam3-2019-03-01-083802.jpg"))
+//            .load(mStorageRef.child("webcam/cam3-2019-03-01-083802.jpg"))
+            .load(mStorageRef.child("webcam/cam3.jpg"))
             .diskCacheStrategy(DiskCacheStrategy.DATA)
             .into(bot);
 
@@ -138,5 +164,4 @@ public class PhotoDatabaseActivity extends AppCompatActivity implements View.OnC
         AlertDialog dialog = builder.create();
         dialog.show();
     }
-
 }

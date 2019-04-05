@@ -1,4 +1,4 @@
-package ginalee0122.github.com.derminosity;
+package derminators.github.com.derminosity;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;

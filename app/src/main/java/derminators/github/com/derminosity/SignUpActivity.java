@@ -1,4 +1,4 @@
-package ginalee0122.github.com.derminosity;
+package derminators.github.com.derminosity;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;

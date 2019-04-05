@@ -1,4 +1,4 @@
-package ginalee0122.github.com.derminosity;
+package derminators.github.com.derminosity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -14,7 +14,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;

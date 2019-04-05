@@ -114,9 +114,9 @@ public class PhotoDatabaseActivity extends AppCompatActivity implements View.OnC
             });
 
 
-        top = findViewById(R.id.imageView1);
-        mid = findViewById(R.id.imageView2);
-        bot = findViewById(R.id.imageView3);
+        top = findViewById(R.id.topView);
+        mid = findViewById(R.id.midView);
+        bot = findViewById(R.id.botView);
 
         top.setOnClickListener(this);
         mid.setOnClickListener(this);

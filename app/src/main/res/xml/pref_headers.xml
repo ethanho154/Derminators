@@ -3,17 +3,17 @@
     <!-- These settings headers are only used on tablets. -->
 
     <header
-        android:fragment="ginalee0122.github.com.derminosity.NewDiagnosisActivity$GeneralPreferenceFragment"
+        android:fragment="derminators.github.com.derminosity.NewDiagnosisActivity$GeneralPreferenceFragment"
         android:icon="@drawable/ic_query_builder_black_24dp"
         android:title="@string/pref_header_general" />
 
     <header
-        android:fragment="ginalee0122.github.com.derminosity.NewDiagnosisActivity$NotificationPreferenceFragment"
+        android:fragment="derminators.github.com.derminosity.NewDiagnosisActivity$NotificationPreferenceFragment"
         android:icon="@drawable/ic_control_point_black_24dp"
         android:title="@string/pref_header_notifications" />
 
     <header
-        android:fragment="ginalee0122.github.com.derminosity.NewDiagnosisActivity$DataSyncPreferenceFragment"
+        android:fragment="derminators.github.com.derminosity.NewDiagnosisActivity$DataSyncPreferenceFragment"
         android:icon="@drawable/ic_settings_input_svideo_black_24dp"
         android:title="@string/pref_header_data_sync" />
 

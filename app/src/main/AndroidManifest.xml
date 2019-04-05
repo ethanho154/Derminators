@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="ginalee0122.github.com.derminosity">
+    package="derminators.github.com.derminosity">
     <!-- To auto-complete the email text field in the login form with the user's emails -->
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
     <uses-permission android:name="android.permission.READ_PROFILE" />
@@ -13,14 +13,14 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".SignUpActivity"></activity>
-        <activity android:name=".MarkImageActivity" />
+        <activity android:name="derminators.github.com.derminosity.SignUpActivity"></activity>
+        <activity android:name="derminators.github.com.derminosity.MarkImageActivity" />
         <activity
-            android:name=".NewDiagnosisActivity"
+            android:name="derminators.github.com.derminosity.NewDiagnosisActivity"
             android:exported="true"
             android:label="@string/app_name" />
         <activity
-            android:name=".LoginActivity"
+            android:name="derminators.github.com.derminosity.LoginActivity"
             android:label="@string/title_activity_login">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -29,16 +29,16 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".PhotoDatabaseActivity"
+            android:name="derminators.github.com.derminosity.PhotoDatabaseActivity"
             android:exported="true" />
         <activity
-            android:name=".MenuActivity"
+            android:name="derminators.github.com.derminosity.MenuActivity"
             android:exported="true"
             android:label="@string/title_activity_menu"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".CameraActivity" />
+        <activity android:name="derminators.github.com.derminosity.CameraActivity" />
         <activity
-            android:name=".ProgressionReportActivity"
+            android:name="derminators.github.com.derminosity.ProgressionReportActivity"
             android:label="@string/title_activity_progression_report"
             android:theme="@style/AppTheme.NoActionBar" />
     </application>

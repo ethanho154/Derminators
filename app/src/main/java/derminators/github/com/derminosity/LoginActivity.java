@@ -32,7 +32,7 @@ public class LoginActivity extends AppCompatActivity implements OnClickListener 
 
   FirebaseAuth mAuth = FirebaseAuth.getInstance();
 
-  private static final int REQUEST_READ_CONTACTS = 0;
+//  private static final int REQUEST_READ_CONTACTS = 0;
 
   /**
    * Keep track of the login task to ensure we can cancel it if requested.
@@ -52,79 +52,18 @@ public class LoginActivity extends AppCompatActivity implements OnClickListener 
     setContentView(R.layout.activity_login);
 
     // Set up the login form.
-    mEmailView = findViewById(R.id.email);
-//    populateAutoComplete();
-    mPasswordView = findViewById(R.id.password);
-//    mPasswordView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-//      @Override
-//      public boolean onEditorAction(TextView textView, int id, KeyEvent keyEvent) {
-//        if (id == EditorInfo.IME_ACTION_DONE || id == EditorInfo.IME_NULL) {
-//          validateFields();
-//          return true;
-//        }
-//        return false;
-//      }
-//    });
+    mEmailView = findViewById(R.id.autocompletetextview_login_email);
+    mPasswordView = findViewById(R.id.edittext_login_password);
 
-    Button mEmailSignInButton = findViewById(R.id.email_sign_in_button);
+    Button mEmailSignInButton = findViewById(R.id.button_login_signin);
     mEmailSignInButton.setOnClickListener(this);
-//    mEmailSignInButton.setOnClickListener(new OnClickListener() {
-//      @Override
-//      public void onClick(View view) {
-//        validateFields();
-//      }
-//    });
 
-    mLoginFormView = findViewById(R.id.login_form);
-    mProgressView = findViewById(R.id.login_progress);
+    mLoginFormView = findViewById(R.id.scrollview_login_form);
+    mProgressView = findViewById(R.id.progressbar_login_status);
 
-    signUpView = findViewById(R.id.sign_up_text);
+    signUpView = findViewById(R.id.textview_login_createaccount);
     signUpView.setOnClickListener(this);
-//    initializeSignUp();
   }
-
-//  private void populateAutoComplete() {
-//    if (!mayRequestContacts()) {
-//      return;
-//    }
-//
-//    getLoaderManager().initLoader(0, null, this);
-//  }
-//
-//  private boolean mayRequestContacts() {
-//    if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
-//      return true;
-//    }
-//    if (checkSelfPermission(READ_CONTACTS) == PackageManager.PERMISSION_GRANTED) {
-//      return true;
-//    }
-//    if (shouldShowRequestPermissionRationale(READ_CONTACTS)) {
-//      Snackbar.make(mEmailView, R.string.permission_rationale, Snackbar.LENGTH_INDEFINITE)
-//        .setAction(android.R.string.ok, new View.OnClickListener() {
-//          @Override
-//          @TargetApi(Build.VERSION_CODES.M)
-//          public void onClick(View v) {
-//            requestPermissions(new String[]{READ_CONTACTS}, REQUEST_READ_CONTACTS);
-//          }
-//        });
-//    } else {
-//      requestPermissions(new String[]{READ_CONTACTS}, REQUEST_READ_CONTACTS);
-//    }
-//    return false;
-//  }
-//
-//  /**
-//   * Callback received when a permissions request has been completed.
-//   */
-//  @Override
-//  public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
-//                                         @NonNull int[] grantResults) {
-//    if (requestCode == REQUEST_READ_CONTACTS) {
-//      if (grantResults.length == 1 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-//        populateAutoComplete();
-//      }
-//    }
-//  }
 
   /**
    * Attempts to sign in or register the account specified by the login form.
@@ -132,18 +71,11 @@ public class LoginActivity extends AppCompatActivity implements OnClickListener 
    * errors are presented and no actual login attempt is made.
    */
   private boolean validateFields(String email, String password) {
-//    if (mAuthTask != null) {
-//      return;
-//    }
-
     // Reset errors.
     mEmailView.setError(null);
     mPasswordView.setError(null);
 
     // Store values at the time of the login attempt.
-//    String email = mEmailView.getText().toString();
-//    String password = mPasswordView.getText().toString();
-
     boolean cancel = false;
     View focusView = null;
 
@@ -170,16 +102,6 @@ public class LoginActivity extends AppCompatActivity implements OnClickListener 
     }
 
     return !cancel;
-
-//    if (cancel) {
-//      // There was an error; don't attempt login and focus the first
-//      // form field with an error.
-//      focusView.requestFocus();
-//    } else {
-
-//      mAuthTask = new UserLoginTask(email, password);
-//      mAuthTask.execute((Void) null);
-//    }
   }
 
   private boolean isEmailValid(String email) {
@@ -207,7 +129,7 @@ public class LoginActivity extends AppCompatActivity implements OnClickListener 
                 if (task.isSuccessful()) {
                     // Sign in success, update UI with the signed-in user's information
                     Log.d("Login attempt", "signInWithEmail:success");
-                    FirebaseUser user = mAuth.getCurrentUser();
+//                    FirebaseUser user = mAuth.getCurrentUser();
                     startActivity(new Intent(LoginActivity.this, MenuActivity.class));
                 } else {
                     // If sign in fails, display a message to the user.
@@ -283,78 +205,15 @@ public class LoginActivity extends AppCompatActivity implements OnClickListener 
     }
   }
 
-//  @Override
-//  public Loader<Cursor> onCreateLoader(int i, Bundle bundle) {
-//    return new CursorLoader(this,
-//      // Retrieve data rows for the device user's 'profile' contact.
-//      Uri.withAppendedPath(ContactsContract.Profile.CONTENT_URI,
-//        ContactsContract.Contacts.Data.CONTENT_DIRECTORY), ProfileQuery.PROJECTION,
-//
-//      // Select only email addresses.
-//      ContactsContract.Contacts.Data.MIMETYPE +
-//        " = ?", new String[]{ContactsContract.CommonDataKinds.Email
-//      .CONTENT_ITEM_TYPE},
-//
-//      // Show primary email addresses first. Note that there won't be
-//      // a primary email address if the user hasn't specified one.
-//      ContactsContract.Contacts.Data.IS_PRIMARY + " DESC");
-//  }
-//
-//  @Override
-//  public void onLoadFinished(Loader<Cursor> cursorLoader, Cursor cursor) {
-//    List<String> emails = new ArrayList<>();
-//    cursor.moveToFirst();
-//    while (!cursor.isAfterLast()) {
-//      emails.add(cursor.getString(ProfileQuery.ADDRESS));
-//      cursor.moveToNext();
-//    }
-//
-//    addEmailsToAutoComplete(emails);
-//  }
-//
-//  @Override
-//  public void onLoaderReset(Loader<Cursor> cursorLoader) {
-//
-//  }
-//
-//  private void addEmailsToAutoComplete(List<String> emailAddressCollection) {
-//    //Create adapter to tell the AutoCompleteTextView what to show in its dropdown list.
-//    ArrayAdapter<String> adapter =
-//      new ArrayAdapter<>(LoginActivity.this,
-//        android.R.layout.simple_dropdown_item_1line, emailAddressCollection);
-//
-//    mEmailView.setAdapter(adapter);
-//  }
-
     @Override
     public void onClick(View v) {
         int i = v.getId();
-        if (i == R.id.email_sign_in_button) {
+        if (i == R.id.button_login_signin) {
             signIn();
         }
-        if (i == R.id.sign_up_text) {
+        if (i == R.id.textview_login_createaccount) {
             createAccount();
         }
     }
-
-
-//    private interface ProfileQuery {
-//    String[] PROJECTION = {
-//      ContactsContract.CommonDataKinds.Email.ADDRESS,
-//      ContactsContract.CommonDataKinds.Email.IS_PRIMARY,
-//    };
-//
-//    int ADDRESS = 0;
-//    int IS_PRIMARY = 1;
-//  }
-
-//  private void initializeSignUp() {
-//      signUpView.setOnClickListener(new View.OnClickListener() {
-//          @Override
-//          public void onClick(View v) {
-//              startActivity(new Intent(LoginActivity.this, SignUpActivity.class));
-//          }
-//      });
-//  }
 }
 

@@ -23,8 +23,12 @@
           }
         },
         {
-          "client_id": "675662686184-u0kvko8pmea3ptf905q6ac9b9e883a34.apps.googleusercontent.com",
-          "client_type": 3
+          "client_id": "675662686184-6fs3ak3imvoi1vki41lcaahc2ijlregn.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "ginalee0122.github.com.myapplication",
+            "certificate_hash": "74785b7a313da8eb3c1a32992a6c83300b50fc30"
+          }
         }
       ],
       "api_key": [
@@ -33,20 +37,13 @@
         }
       ],
       "services": {
-        "analytics_service": {
-          "status": 1
-        },
         "appinvite_service": {
-          "status": 2,
           "other_platform_oauth_client": [
             {
               "client_id": "675662686184-u0kvko8pmea3ptf905q6ac9b9e883a34.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
-        },
-        "ads_service": {
-          "status": 2
         }
       }
     }

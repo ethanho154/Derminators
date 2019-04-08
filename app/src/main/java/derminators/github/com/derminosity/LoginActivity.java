@@ -22,22 +22,12 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 
 /**
  * A login screen that offers login via email/password.
  */
 public class LoginActivity extends AppCompatActivity implements OnClickListener {
-//public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<Cursor>, OnClickListener {
-
   FirebaseAuth mAuth = FirebaseAuth.getInstance();
-
-//  private static final int REQUEST_READ_CONTACTS = 0;
-
-  /**
-   * Keep track of the login task to ensure we can cancel it if requested.
-   */
-//  private UserLoginTask mAuthTask = null;
 
   // UI references.
   private AutoCompleteTextView mEmailView;
@@ -143,32 +133,6 @@ public class LoginActivity extends AppCompatActivity implements OnClickListener 
     }
   }
 
-  private void createAccount() {
-    String email = mEmailView.getText().toString();
-    String password = mPasswordView.getText().toString();
-
-    if (validateFields(email, password)) {
-        showProgress(true);
-        mAuth.createUserWithEmailAndPassword(email, password)
-        .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-            @Override
-            public void onComplete(@NonNull Task<AuthResult> task) {
-                if (task.isSuccessful()) {
-                    // Sign in success, update UI with the signed-in user's information
-                    Log.d("Signup attempt", "createUserWithEmail:success");
-                    FirebaseUser user = mAuth.getCurrentUser();
-                } else {
-                    // If sign in fails, display a message to the user.
-                    Log.w("Signup attempt", "createUserWithEmail:failure", task.getException());
-                    Toast.makeText(LoginActivity.this, "Authentication failed.",
-                    Toast.LENGTH_SHORT).show();
-                }
-                showProgress(false);
-            }
-        });
-    }
-  }
-
   /**
    * Shows the progress UI and hides the login form.
    */
@@ -212,7 +176,7 @@ public class LoginActivity extends AppCompatActivity implements OnClickListener 
             signIn();
         }
         if (i == R.id.textview_login_createaccount) {
-            createAccount();
+            startActivity(new Intent(LoginActivity.this, SignUpActivity.class));
         }
     }
 }

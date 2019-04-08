@@ -13,7 +13,7 @@
 
     <!-- Login progress -->
     <ProgressBar
-        android:id="@+id/signup_progress"
+        android:id="@+id/progressbar_signup_status"
         style="?android:attr/progressBarStyleLarge"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -21,29 +21,43 @@
         android:visibility="gone" />
 
     <ScrollView
-        android:id="@+id/signup_form"
+        android:id="@+id/scrollview_signup_form"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <LinearLayout
-            android:id="@+id/email_signup_form"
+            android:id="@+id/linearlayout_signup_form"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:gravity="center">
+            android:gravity="center"
+            android:orientation="vertical">
 
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
                 <AutoCompleteTextView
-                    android:id="@+id/name_signup"
+                    android:id="@+id/autocompletetextview_signup_firstname"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/prompt_name"
                     android:inputType="textPersonName"
                     android:maxLines="1"
-                    android:singleLine="true"/>
+                    android:singleLine="true" />
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <AutoCompleteTextView
+                    android:id="@+id/autocompletetextview_signup_lastname"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/prompt_name"
+                    android:inputType="textPersonName"
+                    android:maxLines="1"
+                    android:singleLine="true" />
             </android.support.design.widget.TextInputLayout>
 
             <android.support.design.widget.TextInputLayout
@@ -51,7 +65,7 @@
                 android:layout_height="wrap_content">
 
                 <AutoCompleteTextView
-                    android:id="@+id/email_signup"
+                    android:id="@+id/autocompletetextview_signup_email"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/prompt_email"
@@ -63,10 +77,21 @@
 
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <android.support.design.widget.TextInputEditText
+                    android:id="@+id/edittext_signup_hospital"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/prompt_hospital"/>
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
                 <EditText
-                    android:id="@+id/password_signup"
+                    android:id="@+id/edittext_signup_password"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/prompt_password"
@@ -79,8 +104,14 @@
 
             </android.support.design.widget.TextInputLayout>
 
+            <Spinner
+                android:id="@+id/spinner_signup_usertype"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+
             <Button
-                android:id="@+id/sign_up_button"
+                android:id="@+id/button_signup_createaccount"
                 style="?android:textAppearanceSmall"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -89,7 +120,7 @@
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/account_already_exists_text"
+                android:id="@+id/textview_signup_accountalreadyexists"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center_horizontal"

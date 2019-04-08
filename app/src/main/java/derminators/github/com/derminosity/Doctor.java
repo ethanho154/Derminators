@@ -5,6 +5,8 @@ import java.util.List;
 
 public class Doctor extends User {
     private String uid;
+    private String firstName;
+    private String lastName;
     private String hospital;
     private List<String> patients;
 
@@ -12,8 +14,8 @@ public class Doctor extends User {
 
     }
 
-    public Doctor(String uid, String hospital) {
-        super(uid);
+    public Doctor(String uid, String firstName, String lastName, String hospital) {
+        super(uid, firstName, lastName);
         this.hospital = hospital;
         patients = new ArrayList<String>();
     }

@@ -141,32 +141,34 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
     private void createAccount() {
         final String firstName = firstNameView.getText().toString();
         final String lastName = lastNameView.getText().toString();
-        String email = emailView.getText().toString();
+        final String email = emailView.getText().toString();
         String password = passwordView.getText().toString();
         final String hospital = hospitalView.getText().toString();
 
         if (validateFields(firstName, lastName, email, password, hospital)) {
             showProgress(true);
             mAuth.createUserWithEmailAndPassword(email, password)
-                    .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                        @Override
-                        public void onComplete(@NonNull Task<AuthResult> task) {
-                            if (task.isSuccessful()) {
-                                // Sign in success, update UI with the signed-in user's information
-                                Log.d("Signup attempt", "createUserWithEmail:success");
-                                currentUser = mAuth.getCurrentUser();
-                                String uid = currentUser.getUid();
-                                Log.d("Signup attempt", "saving data model to firebase");
-                                saveData(uid, firstName, lastName, hospital);
-                            } else {
-                                // If sign in fails, display a message to the user.
-                                Log.w("Signup attempt", "createUserWithEmail:failure", task.getException());
-                                Toast.makeText(SignUpActivity.this, "Authentication failed.",
-                                        Toast.LENGTH_SHORT).show();
-                            }
-                            showProgress(false);
-                        }
-                    });
+                .addOnSuccessListener(this, new OnSuccessListener<AuthResult>() {
+                    @Override
+                    public void onSuccess(AuthResult authResult) {
+                        // Sign in success, update UI with the signed-in user's information
+                        Log.d("Signup attempt", "createUserWithEmail:success");
+                        currentUser = mAuth.getCurrentUser();
+                        String uid = currentUser.getUid();
+                        Log.d("Signup attempt", "saving data model to firebase");
+                        saveData(uid, email, firstName, lastName, hospital);
+                    }
+                })
+                .addOnFailureListener(this, new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        // If sign in fails, display a message to the user.
+                        Log.w("Signup attempt", "createUserWithEmail:failure", e);
+                        Toast.makeText(SignUpActivity.this, "Authentication failed.",
+                                Toast.LENGTH_SHORT).show();
+                    }
+                });
+            showProgress(false);
         }
     }
 
@@ -206,20 +208,20 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
         }
     }
 
-    private void saveData(String uid, String firstName, String lastName, String hospital) {
+    private void saveData(String uid, String email, String firstName, String lastName, String hospital) {
         Doctor doctor = new Doctor(uid, firstName, lastName, hospital);
-        db.collection("doctors")
-                .add(doctor)
-                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+        db.collection("doctors").document(email)
+                .set(doctor)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
-                    public void onSuccess(DocumentReference documentReference) {
-                        Log.d("saveData", "DocumentSnapshot written with ID: " + documentReference.getId());
+                    public void onSuccess(Void aVoid) {
+                        Log.d("saveData", "DocumentSnapshot successfully written!");
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
-                        Log.w("saveData", "Error adding document", e);
+                        Log.w("saveData", "Error writing document", e);
                     }
                 });
     }

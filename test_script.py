@@ -2,7 +2,7 @@ import io
 import os
 import datetime
 import time
-from PIL import Image
+from PIL import Image, ImageTk
 import Tkinter as tk
 # from google.cloud import storage
 
@@ -64,7 +64,7 @@ def capture_pose(pose_num):
             camera_select = (x-1)%4
             filename = "/home/pi/webcam/cam" + str(x) + ".jpg"
             print "filename is ", filename, " camera select is ", camera_select
-            os.system("fswebcam -d /dev/video0 -r 1920x1080 -S 5 -q --no-banner "+filename)
+            # os.system("fswebcam -d /dev/video0 -r 1920x1080 -S 5 -q --no-banner "+filename)
     except:
         print "failed to capture pose"
 
@@ -72,13 +72,20 @@ def capture_image(img_num):
     camera_select = (img_num-1)%4
     filename = "/home/pi/webcam/cam" + str(img_num) + ".jpg"
     print "filename is ", filename, " camera select is ", camera_select
-    os.system("fswebcam -d /dev/video0 -r 1920x1080 -S 5 -q --no-banner "+filename)
+    # os.system("fswebcam -d /dev/video0 -r 1920x1080 -S 5 -q --no-banner "+filename)
 
 def check_image(img_num):
     try:
         real_num = (img_num-1)%4+1
         print "really displaying", real_num
-        os.system('display -resize '+str(798)+'x'+str(430)+'! /home/pi/webcam/cam'+str(real_num)+'.jpg')
+        image_window = tk.Toplevel(main_window)
+        image_window.title('Image'+str(img_num))
+        image_window.geometry(touch_screen_size)
+        image_path = '/home/pi/webcam/cam'+str(real_num)+'.jpg'
+        img = ImageTk.PhotoImage(Image.open(image_path))
+        img_panel = tk.Label(image_window,image=img)
+        img_panel.pack(side="bottom",fill="both",expand="yes")
+        # os.system('display -resize '+str(798)+'x'+str(430)+'! /home/pi/webcam/cam'+str(real_num)+'.jpg')
     except:
         print "failed to check image"
 

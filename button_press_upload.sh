@@ -1,3 +1,5 @@
 #!/bin/bash
 
-sudo python firebase_upload.py &
+## bash script to automatically run the Firebase upload code
+
+sudo python Derminators/firebase_upload.py &

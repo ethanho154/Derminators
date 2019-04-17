@@ -1,21 +1,26 @@
 import io
-import os
-import datetime
-import time
 import RPi.GPIO as GPIO
-from google.cloud import storage
+
+## set pinouts for IOs
+
+LED = 19
+BUTTON = 26
+
+wait_time = 0.2
+led_flash_time = 0.5
+
+## configuration for IOs pull down resistor for button
 
 GPIO.setwarnings(False)
 GPIO.setmode(GPIO.BCM)
-GPIO.setup(26,GPIO.IN,pull_up_down=GPIO.PUD_DOWN)
-GPIO.setup(19,GPIO.OUT)
-
+GPIO.setup(BUTTON,GPIO.IN,pull_up_down=GPIO.PUD_DOWN)
+GPIO.setup(LED,GPIO.OUT)
 
 while True:
-    input_state = GPIO.input(26)
+    input_state = GPIO.input(BUTTON)
     if input_state == True:
         print("Button was pushed")
-        GPIO.output(19,GPIO.HIGH)
-        time.sleep(0.5)
-        GPIO.output(19,GPIO.LOW)
-    time.sleep(0.2)
+        GPIO.output(LED,GPIO.HIGH)
+        time.sleep(led_flash_time)
+        GPIO.output(LED,GPIO.LOW)
+    time.sleep(wait_time)

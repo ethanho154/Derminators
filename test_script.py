@@ -4,76 +4,102 @@ import datetime
 import time
 from PIL import Image
 import Tkinter as tk
-from google.cloud import storage
+# from google.cloud import storage
 
-## Create Main Window
+# config values
+
+touch_screen_size = "800x480"
+main_menu_font = 'Helvetica 17 bold'
+
+## create main window
 
 main_window = tk.Tk()
 main_window.title('Image Capture Helper')
-main_window.geometry("800x480")
+main_window.geometry(touch_screen_size)
 
-## Define Button Functions
+## define button functions
 
 def new_window_capture():
     capture_window = tk.Toplevel(main_window)
     capture_window.title('Capture Window')
-    capture_window.geometry("800x480")
+    capture_window.geometry(touch_screen_size)
 
     capture_buttons = []
     pose_buttons = []
-    
+
     for x in range(1,17):
         capture_buttons.append(tk.Button(capture_window, text='Capture Image '+str(x), height=3,width=15,command=(lambda x=x: capture_image(x))))
-    
+
     for x in range(1,5):
-        pose_buttons.append(tk.Button(capture_window, text='Capture Pose '+str(x), font='Helvetica 14 bold', height=4,width=15,command=(lambda x=x: capture_pose(x))))
-        pose_buttons[x-1].grid(column=x-1,row=0)
-    
+        pose_buttons.append(tk.Button(capture_window, text='Capture Pose '+str(x), font='Helvetica 14 bold', height=4, width=15, command=(lambda x=x: capture_pose(x))))
+        pose_buttons[x-1].grid(column=x-1, row=0)
+
     for x in range(16):
-        capture_buttons[x].grid(column=x/4,row=x%4+1)
-    
+        capture_buttons[x].grid(column=x/4, row=x%4+1)
+
     capture_back = tk.Button(capture_window, text='Close Window', height=3,width=16,command=capture_window.destroy)
     capture_back.grid(column=0,row=5)
 
 def new_window_check():
     check_window = tk.Toplevel(main_window)
     check_window.title('Check Window')
-    check_window.geometry("800x480")
-    
+    check_window.geometry(touch_screen_size)
+
     check_buttons = []
     for x in range(1,17):
         check_buttons.append(tk.Button(check_window, text='Check Image '+str(x), height=4,width=18,command=(lambda x=x: check_image(x))))
-        
+
     for x in range(16):
         check_buttons[x].grid(column=x/4,row=x%4)
-    
+
     check_back = tk.Button(check_window, text='Close Window', height=4,width=18,command=check_window.destroy)
     check_back.grid(column=0,row=4)
 
 def capture_pose(pose_num):
-    print "captured images "+str((pose_num-1)*4)+" to "+str((pose_num-1)*4+3)
+    first_photo = (pose_num-1)*4+1
+    last_photo = (pose_num-1)*4+4
+    try:
+        print "captured images " + str(first_photo) + " to " + str(last_photo)
+        for x in range(first_photo,last_photo+1):
+            camera_select = (x-1)%4
+            filename = "/home/pi/webcam/cam" + str(x) + ".jpg"
+            print "filename is ", filename, " camera select is ", camera_select
+            os.system("fswebcam -d /dev/video0 -r 1920x1080 -S 5 -q --no-banner "+filename)
+    except:
+        print "failed to capture pose"
 
 def capture_image(img_num):
-    print "captured image "+str(img_num)
-#    os.system("fswebcam -d /dev/video0 -r 1920x1080 -S 5 -q --no-banner /home/pi/webcam/cam1.jpg")
+    camera_select = (img_num-1)%4
+    filename = "/home/pi/webcam/cam" + str(img_num) + ".jpg"
+    print "filename is ", filename, " camera select is ", camera_select
+    os.system("fswebcam -d /dev/video0 -r 1920x1080 -S 5 -q --no-banner "+filename)
 
 def check_image(img_num):
     try:
-        print "check image "+str(img_num)
         real_num = (img_num-1)%4+1
-        os.system('display -resize '+str(798)+'x'+str(430)+'! webcam/cam'+str(real_num)+'.jpg')
+        print "really displaying", real_num
+        os.system('display -resize '+str(798)+'x'+str(430)+'! /home/pi/webcam/cam'+str(real_num)+'.jpg')
     except:
-        print "Failed to check image"
+        print "failed to check image"
 
 def upload_images():
     try:
-        print "Images Uploaded!"
+        firebase_upload()
+        upload_image_screen()
     except:
-        print "Error in uploading images"
+        print "error in uploading images"
 
-button_capture = tk.Button(main_window, text='Capture Images', font='Helvetica 17 bold',height=4,width=40,command=new_window_capture)
-button_check = tk.Button(main_window, text='Check Images', font='Helvetica 17 bold',height=4,width=40,command=new_window_check)
-button_upload = tk.Button(main_window, text='Upload Images',font='Helvetica 17 bold',height=4,width=40,command=(lambda: upload_images()))
+def upload_image_screen():
+    upload_window = tk.Toplevel(main_window)
+    upload_window.title('Upload Window')
+    upload_window.geometry(touch_screen_size)
+    upload_message = "Upload Success! Touch to Return Back"
+    upload_destroy = tk.Button(upload_window, text=upload_message, font = main_menu_font, height=18, width=60,command=upload_window.destroy)
+    upload_destroy.pack()
+
+button_capture = tk.Button(main_window, text='Capture Images', font=main_menu_font, height=4, width=40, command =(lambda: new_window_capture()))
+button_check = tk.Button(main_window, text='Check Images', font=main_menu_font, height=4, width=40, command=(lambda: new_window_check()))
+button_upload = tk.Button(main_window, text='Upload Images',font=main_menu_font, height=4, width=40, command=(lambda: upload_images()))
 
 ## Add Buttons to GUI
 
@@ -83,38 +109,18 @@ button_upload.pack()
 
 main_window.mainloop()
 
-#if True:
+def firebase_upload():
 
-    #os.system("fswebcam -d /dev/video0 -r 1920x1080 -S 5 -q --no-banner /home/pi/webcam/cam1.jpg")
+    PROJECT_ID = 'BME590Project'
+    CLOUD_STORAGE_BUCKET = 'bme590project.appspot.com'
 
-    # Google Cloud Project ID. This can be found on the 'Overview' page at
-    # https://console.developers.google.com
-    #PROJECT_ID = 'BME590Project'
-    #CLOUD_STORAGE_BUCKET = 'bme590project.appspot.com'
-
-    #filename = "webcam/cam1.jpg"
-
-    # Create unique filename to avoid name collisions in Google Cloud Storage
-    #date = datetime.datetime.utcnow().strftime("%Y-%m-%d-%H%M%S")
-    #basename, extension = filename.rsplit('.', 1)
-    #unique_filename = "{0}-{1}.{2}".format(basename, date, extension)
-    # Instantiate a client on behalf of the project
-    #client = storage.Client(project=PROJECT_ID)
-    # Instantiate a bucket
-    #bucket = client.bucket(CLOUD_STORAGE_BUCKET)
-    # Instantiate a blob
-    #blob = bucket.blob(filename)
-
-    # Upload the file
-    #with open(filename, "rb") as fp:
-    #    try:
-    #        blob.upload_from_file(fp)
-    #    except:
-    #        print "Upload failed"
-
-    #print("Photos Uploaded!")
-
-    #GPIO.output(19,GPIO.HIGH)
-    #time.sleep(0.3)
-    #GPIO.output(19,GPIO.LOW)
-
+    for x in range(16):
+        filename = "/home/pi/webcam/cam" + str(x+1) + ".jpg"
+        client = storage.Client(project=PROJECT_ID)
+        bucket = client.bucket(CLOUD_STORAGE_BUCKET)
+        blob = bucket.blob(filename)
+        with open(filename, "rb") as fp:
+           try:
+               blob.upload_from_file(fp)
+           except:
+               print "firebase upload failed"

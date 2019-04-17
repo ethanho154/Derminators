@@ -2,8 +2,9 @@ import io
 import os
 import datetime
 import time
-from PIL import Image, ImageTk
 import Tkinter as tk
+import PythonMagick
+from PIL import Image, ImageTk
 # from google.cloud import storage
 
 # config values
@@ -75,19 +76,24 @@ def capture_image(img_num):
     # os.system("fswebcam -d /dev/video0 -r 1920x1080 -S 5 -q --no-banner "+filename)
 
 def check_image(img_num):
-    try:
-        real_num = (img_num-1)%4+1
-        print "really displaying", real_num
-        image_window = tk.Toplevel(main_window)
-        image_window.title('Image'+str(img_num))
-        image_window.geometry(touch_screen_size)
-        image_path = '/home/pi/webcam/cam'+str(real_num)+'.jpg'
-        img = ImageTk.PhotoImage(Image.open(image_path))
-        img_panel = tk.Label(image_window,image=img)
-        img_panel.pack(side="bottom",fill="both",expand="yes")
+    real_num = (img_num-1)%4+1
+    print "really displaying", real_num
+    
+    image_window = tk.Toplevel(main_window)
+    image_window.title('Image'+str(img_num))
+    image_window.geometry(touch_screen_size)
+    path = "/home/pi/webcam/cam" + str(real_num) + ".jpg"
+    load = ImageTk.PhotoImage(Image.open(path).resize((600,480),Image.ANTIALIAS))
+    img_canvas = tk.Canvas(image_window,width=800,height=480)
+    img_canvas.grid(row=0,column=0)
+    img_canvas.create_image(0,0,image=load,anchor="nw")
+    img_canvas.image = load
+    back_button = tk.Button(image_window, text='Close Window', height=4,width=20,command=image_window.destroy)
+    back_button.place(x=600,y=200)
+    image_window.mainloop()
         # os.system('display -resize '+str(798)+'x'+str(430)+'! /home/pi/webcam/cam'+str(real_num)+'.jpg')
-    except:
-        print "failed to check image"
+    #except:
+     #   print "failed to check image"
 
 def upload_images():
     try:

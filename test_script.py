@@ -3,22 +3,19 @@ import os
 import datetime
 import time
 import Tkinter as tk
-import PythonMagick
 from PIL import Image, ImageTk
 # from google.cloud import storage
 
 # config values
-
 touch_screen_size = "800x480"
 main_menu_font = 'Helvetica 17 bold'
 
-## create main window
-
+# create main window
 main_window = tk.Tk()
 main_window.title('Image Capture Helper')
 main_window.geometry(touch_screen_size)
 
-## define button functions
+## define button functions ##
 
 def new_window_capture():
     capture_window = tk.Toplevel(main_window)
@@ -70,55 +67,57 @@ def capture_pose(pose_num):
         print "failed to capture pose"
 
 def capture_image(img_num):
+
     camera_select = (img_num-1)%4
     filename = "/home/pi/webcam/cam" + str(img_num) + ".jpg"
     print "filename is ", filename, " camera select is ", camera_select
-    # os.system("fswebcam -d /dev/video0 -r 1920x1080 -S 5 -q --no-banner "+filename)
+
+    # image capture command
+    try:
+        os.system("fswebcam -d /dev/video0 -r 1920x1080 -S 5 -q --no-banner "+filename)
+    except:
+        print "capture failed"
 
 def check_image(img_num):
     real_num = (img_num-1)%4+1
     print "really displaying", real_num
-    
+    path = "/home/pi/webcam/cam" + str(real_num) + ".jpg"
+
+    # create image window
     image_window = tk.Toplevel(main_window)
     image_window.title('Image'+str(img_num))
     image_window.geometry(touch_screen_size)
-    path = "/home/pi/webcam/cam" + str(real_num) + ".jpg"
-    load = ImageTk.PhotoImage(Image.open(path).resize((600,480),Image.ANTIALIAS))
-    img_canvas = tk.Canvas(image_window,width=800,height=480)
-    img_canvas.grid(row=0,column=0)
-    img_canvas.create_image(0,0,image=load,anchor="nw")
-    img_canvas.image = load
+
+    try:
+        # open image
+        loaded_img = ImageTk.PhotoImage(Image.open(path).resize((600,480),Image.ANTIALIAS))
+        # place image on canvas (left side of screen)
+        img_canvas = tk.Canvas(image_window,width=800,height=480)
+        img_canvas.grid(row=0,column=0)
+        img_canvas.create_image(0,0,image=loaded_img,anchor="nw")
+        img_canvas.image = loaded_img
+    except:
+        print "image viewer failed"
+
+    # create back button
     back_button = tk.Button(image_window, text='Close Window', height=4,width=20,command=image_window.destroy)
     back_button.place(x=600,y=200)
     image_window.mainloop()
-        # os.system('display -resize '+str(798)+'x'+str(430)+'! /home/pi/webcam/cam'+str(real_num)+'.jpg')
-    #except:
-     #   print "failed to check image"
 
 def upload_images():
     try:
         firebase_upload()
-        upload_image_screen()
+        upload_window = tk.Toplevel(main_window)
+        upload_window.title('Upload Window')
+        upload_window.geometry(touch_screen_size)
+        upload_message = "Upload Success! Touch to Return Back"
+        upload_destroy = tk.Button(upload_window, text=upload_message, font = main_menu_font, height=18, width=60,command=upload_window.destroy).pack()
     except:
         print "error in uploading images"
 
-def upload_image_screen():
-    upload_window = tk.Toplevel(main_window)
-    upload_window.title('Upload Window')
-    upload_window.geometry(touch_screen_size)
-    upload_message = "Upload Success! Touch to Return Back"
-    upload_destroy = tk.Button(upload_window, text=upload_message, font = main_menu_font, height=18, width=60,command=upload_window.destroy)
-    upload_destroy.pack()
-
-button_capture = tk.Button(main_window, text='Capture Images', font=main_menu_font, height=4, width=40, command =(lambda: new_window_capture()))
-button_check = tk.Button(main_window, text='Check Images', font=main_menu_font, height=4, width=40, command=(lambda: new_window_check()))
-button_upload = tk.Button(main_window, text='Upload Images',font=main_menu_font, height=4, width=40, command=(lambda: upload_images()))
-
-## Add Buttons to GUI
-
-button_capture.pack()
-button_check.pack()
-button_upload.pack()
+button_capture = tk.Button(main_window, text='Capture Images', font=main_menu_font, height=4, width=40, command =(lambda: new_window_capture())).pack()
+button_check = tk.Button(main_window, text='Check Images', font=main_menu_font, height=4, width=40, command=(lambda: new_window_check())).pack()
+button_upload = tk.Button(main_window, text='Upload Images',font=main_menu_font, height=4, width=40, command=(lambda: upload_images())).pack()
 
 main_window.mainloop()
 

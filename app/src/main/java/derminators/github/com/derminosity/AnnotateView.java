@@ -20,6 +20,17 @@ class AnnotateView extends android.support.v7.widget.AppCompatImageView {
         super(context, attrs, defStyle);
     }
 
+//    @Override
+//    public void onDraw(Canvas canvas) {
+//        Paint paint = new Paint();
+//        paint.setColor(Color.TRANSPARENT);
+////        paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.CLEAR));
+//
+//        Rect rect = new Rect();
+//        rect.set((int) getX() - 50, (int) getY() - 50, (int) getX() + 50, (int) getY() + 50);
+//        canvas.drawRect(rect, paint);
+//    }
+
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         final int action = event.getActionMasked();

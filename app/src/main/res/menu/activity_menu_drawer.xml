@@ -13,13 +13,17 @@
       android:icon="@drawable/ic_menu_gallery"
       android:title="Import from Database" />
     <item
-      android:id="@+id/nav_slideshow"
-      android:icon="@drawable/ic_menu_slideshow"
-      android:title="Progression Reports" />
+        android:id="@+id/nav_slideshow"
+        android:icon="@drawable/ic_menu_slideshow"
+        android:title="Diagnosis History" />
+    <item
+      android:id="@+id/nav_examine"
+      android:icon="@drawable/ic_control_point_black_24dp"
+      android:title="Create New Diagnosis" />
     <item
       android:id="@+id/nav_manage"
       android:icon="@drawable/ic_menu_manage"
-      android:title="New Diagnosis Settings" />
+      android:title="Diagnosis Settings" />
   </group>
 
   <item android:title="Communicate">

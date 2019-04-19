@@ -1,17 +1,12 @@
 package derminators.github.com.derminosity;
 
 import android.content.Context;
-import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.Paint;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
-import android.widget.ImageView;
 
 class AnnotateView extends android.support.v7.widget.AppCompatImageView {
-    private final Paint paint = new Paint();
-    private float x;
-    private float y;
+    private float xPos;
+    private float yPos;
 
     public AnnotateView(Context context) {
         super(context);
@@ -26,20 +21,29 @@ class AnnotateView extends android.support.v7.widget.AppCompatImageView {
     }
 
     @Override
-    public void onDraw(Canvas canvas) {
-        super.onDraw(canvas);
-        canvas.drawCircle(x, y, 5, paint);
-//        paint.setColor(Color.BLACK);
-//        paint.setStyle(Paint.Style.FILL_AND_STROKE);
-//        paint.setStrokeWidth(10);
-//        canvas.drawRect(leftX, topY, rightX, bottomY, paint);
-    }
-
-    @Override
     public boolean onTouchEvent(MotionEvent event) {
-        x = event.getX();
-        y = event.getY();
-        invalidate();
+        final int action = event.getActionMasked();
+
+        switch (action) {
+            case MotionEvent.ACTION_DOWN: {
+                xPos = getX() - event.getRawX();
+                yPos = getY() - event.getRawY();
+                break;
+            }
+
+            case MotionEvent.ACTION_MOVE: {
+                animate()
+                        .x(event.getRawX() + xPos)
+                        .y(event.getRawY() + yPos)
+                        .setDuration(0).start();
+                break;
+            }
+
+            case MotionEvent.ACTION_UP: {
+                break;
+            }
+        }
         return true;
     }
+
 }

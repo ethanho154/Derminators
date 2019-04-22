@@ -6,24 +6,23 @@ import android.support.v7.app.AppCompatActivity;
 import com.bumptech.glide.Glide;
 
 public class MarkImageActivity extends AppCompatActivity {
-    private AnnotateView annotateView;
+    private CropView cropView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mark_image);
-        setAnnotateView();
+        setCropView();
     }
 
     private void populateActivity() {
 
     }
 
-    private void setAnnotateView() {
-//        annotateView = new AnnotateView();
-    annotateView = findViewById(R.id.annotateView);
+    private void setCropView() {
+    cropView = findViewById(R.id.cropView);
     Glide.with(MarkImageActivity.this)
         .load(this.getFilesDir().getAbsolutePath() + "/cam2.jpg")
-        .into(annotateView);
+        .into(cropView);
     }
 }

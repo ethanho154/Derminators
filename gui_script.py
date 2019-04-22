@@ -70,7 +70,8 @@ def capture_pose(pose_num, main_window):
             camera_select = (x-1)%num_cameras
             filename = create_filepath(x)
             print "Capturing image %d with camera %d" % (x,camera_select)
-            subprocess.call(['fswebcam -d /dev/video0 -r 1920x1080 -S 5 -q --no-banner'+filename])
+            command = 'fswebcam -d /dev/video0 -r 1920x1080 -S 5 -q --no-banner ' + filename
+            subprocess_cmd(command)
         pose_message = "Pose capture succeeded! Touch to return back."
     except:
         pose_message = "Pose capture failed... touch to return back and try again."
@@ -91,7 +92,8 @@ def capture_image(img_num, main_window):
     # image capture command
     try:
         print "Capturing image %d with camera %d" % (img_num, camera_select)
-        subprocess.call(['fswebcam -d /dev/video0 -r 1920x1080 -S 5 -q --no-banner'+filename])
+        command = 'fswebcam -d /dev/video0 -r 1920x1080 -S 5 --no-banner ' + filename
+        subprocess_cmd(command)
         capture_message = "Image capture succeeded! Touch to return back."
     except:
         capture_message = "Image capture failed... touch to return back and try again."
@@ -164,6 +166,10 @@ def firebase_upload():
 
 def create_filepath(img_num):
     return "/home/pi/webcam/cam" + str(img_num) + ".jpg"
+
+def subprocess_cmd(command):
+    output = subprocess.check_output(command, shell=True)
+    print output
 
 def main():
 

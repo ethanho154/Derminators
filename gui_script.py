@@ -70,7 +70,7 @@ def capture_pose(pose_num, main_window):
             camera_select = (x-1)%num_cameras
             filename = create_filepath(x)
             print "Capturing image %d with camera %d" % (x,camera_select)
-            command = 'fswebcam -d /dev/video0 -r 1920x1080 -S 5 -q --no-banner ' + filename
+            command = 'fswebcam -d /dev/video'+str(camera_select)' -r 1920x1080 -S 5 -q --no-banner ' + filename
             subprocess_cmd(command)
         pose_message = "Pose capture succeeded! Touch to return back."
     except:
@@ -92,7 +92,7 @@ def capture_image(img_num, main_window):
     # image capture command
     try:
         print "Capturing image %d with camera %d" % (img_num, camera_select)
-        command = 'fswebcam -d /dev/video0 -r 1920x1080 -S 5 --no-banner ' + filename
+        command = 'fswebcam -d /dev/video'+str(camera_select)' -r 1920x1080 -S 5 --no-banner ' + filename
         subprocess_cmd(command)
         capture_message = "Image capture succeeded! Touch to return back."
     except:
@@ -105,7 +105,7 @@ def capture_image(img_num, main_window):
 
 def check_image(img_num, main_window):
     real_num = (img_num-1)%num_cameras+1
-    path = create_filepath(real_num)
+    path = create_filepath(img_num)
 
     # create image window
     image_window = tk.Toplevel(main_window)

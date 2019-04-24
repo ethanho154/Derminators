@@ -55,17 +55,20 @@ public class BlobDetectionActivity extends AppCompatActivity {
 
     private Bitmap bitmap;
     private ImageView imageView;
+    private boolean loaded = false;
 
 //    private CameraBridgeViewBase mOpenCvCameraView;
 //    private static final int PERMISSION_REQUEST_CODE = 200;
 
-    private BaseLoaderCallback  mLoaderCallback = new BaseLoaderCallback(this) {
+    private BaseLoaderCallback mLoaderCallback = new BaseLoaderCallback(this) {
         @Override
         public void onManagerConnected(int status) {
             switch (status) {
                 case LoaderCallbackInterface.SUCCESS:
                 {
                     Log.i(TAG, "OpenCV loaded successfully");
+
+                    onImageLoaded();
 //                    mOpenCvCameraView.enableView();
 //                    mOpenCvCameraView.setOnTouchListener(BlobDetectionActivity.this);
                 } break;
@@ -98,21 +101,20 @@ public class BlobDetectionActivity extends AppCompatActivity {
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 
         setContentView(R.layout.activity_blob_detection);
-
-        String path = getFilesDir().toString() + "/savedImage.jpg";
-        BitmapFactory.Options bmOptions = new BitmapFactory.Options();
-        bitmap = BitmapFactory.decodeFile(path, bmOptions);
-
         imageView = findViewById(R.id.image_view_blob_detection_analyze);
 
-        onImageLoaded(bitmap.getHeight(), bitmap.getWidth());
+        File file = new File(this.getFilesDir(), "savedImage.jpg");
+//        File file = new File(this.getFilesDir(), "test.jpg");
+        BitmapFactory.Options bmOptions = new BitmapFactory.Options();
+        bitmap = BitmapFactory.decodeFile(file.getAbsolutePath(), bmOptions);
+
 //        mOpenCvCameraView = (CameraBridgeViewBase) findViewById(R.id.color_blob_detection_activity_surface_view);
 //        mOpenCvCameraView.setVisibility(SurfaceView.VISIBLE);
 //        mOpenCvCameraView.setCvCameraViewListener(this);
     }
 
-    private void onImageLoaded(int height, int width) {
-        mRgba = new Mat(height, width, CvType.CV_8UC4);
+    private void onImageLoaded() {
+        mRgba = new Mat(bitmap.getHeight(), bitmap.getWidth(), CvType.CV_8UC4);
         mDetector = new BlobDetector();
         mSpectrum = new Mat();
         mBlobColorRgba = new Scalar(255);
@@ -136,8 +138,10 @@ public class BlobDetectionActivity extends AppCompatActivity {
             mSpectrum.copyTo(spectrumLabel);
         }
 
-        Utils.matToBitmap(mRgba, bitmap);
-        imageView.setImageBitmap(bitmap);
+        Bitmap processedBitmap = Bitmap.createBitmap(bitmap.getWidth(), bitmap.getHeight(), Bitmap.Config.ARGB_8888);
+
+        Utils.matToBitmap(mRgba, processedBitmap);
+        imageView.setImageBitmap(processedBitmap);
     }
 
     @Override

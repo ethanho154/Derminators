@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -26,9 +27,12 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class PhotoDatabaseActivity extends AppCompatActivity implements View.OnClickListener {
     private FirebaseAuth mAuth;
@@ -38,12 +42,15 @@ public class PhotoDatabaseActivity extends AppCompatActivity implements View.OnC
     private ListView listView;
     private List<String> images;
 
+    private Map<View, Integer> indices;
+    private int index;
+
 //    private ImageView top;
 //    private ImageView mid;
 //    private ImageView bot;
 
-//    File directory;
-//    File file = null;
+    File directory;
+    File file = null;
 
     private AlertDialog.Builder builder;
 
@@ -52,7 +59,7 @@ public class PhotoDatabaseActivity extends AppCompatActivity implements View.OnC
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_photo_database);
 
-//        directory = this.getFilesDir();
+        directory = this.getFilesDir();
 //        Log.d("File path", directory.getAbsolutePath());
 
         initializeViews();
@@ -110,8 +117,22 @@ public class PhotoDatabaseActivity extends AppCompatActivity implements View.OnC
             .setPositiveButton("Annotate", new DialogInterface.OnClickListener() {
             @Override
                 public void onClick(DialogInterface dialog, int which) {
-                    Intent i = new Intent(PhotoDatabaseActivity.this, MarkImageActivity.class);
-                    startActivity(i);
+                file = new File(directory, "savedImage.jpg");
+                Log.d("Save", "Statement reached");
+                mStorageRef.child("webcam/cam" + index + ".jpg").getFile(file).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
+                    @Override
+                    public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
+                        Log.d("Save", "Success");
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.d("Save", "Fail");
+                    }
+                });
+
+                Intent i = new Intent(PhotoDatabaseActivity.this, BlobDetectionActivity.class);
+                startActivity(i);
                 }
             })
             .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -120,62 +141,28 @@ public class PhotoDatabaseActivity extends AppCompatActivity implements View.OnC
                 }
             });
 
-
         listView = findViewById(R.id.listView_photoDB_images);
 
-//        top = findViewById(R.id.topView);
-//        mid = findViewById(R.id.midView);
-//        bot = findViewById(R.id.botView);
+        indices = new HashMap<>();
 
-//        top.setOnClickListener(this);
-//        mid.setOnClickListener(this);
-//        bot.setOnClickListener(this);
     }
 
     private void downloadImage(StorageReference mStorageRef) {
         images = new ArrayList<>();
-        for (int i = 1; i <= 4; i++) {
+        for (int i = 1; i <= 16; i++) {
+//            images.add("home/pi/webcam/cam" + i + ".jpg");
             images.add("webcam/cam" + i + ".jpg");
         }
 
         listView.setAdapter(new ImageListAdapter(PhotoDatabaseActivity.this, R.layout.list_item, images));
-//        Glide.with(PhotoDatabaseActivity.this)
-////            .load(mStorageRef.child("webcam/cam2-2019-03-01-083802.jpg"))
-//            .load(mStorageRef.child("webcam/cam2.jpg"))
-//            .diskCacheStrategy(DiskCacheStrategy.DATA)
-//            .into(top);
-//        file = new File(directory, "cam2.jpg");
-//        mStorageRef.child("webcam/cam2.jpg").getFile(file).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
-//            @Override
-//            public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
-//                Log.d("Save", "Success");
-//            }
-//        }).addOnFailureListener(new OnFailureListener() {
-//            @Override
-//            public void onFailure(@NonNull Exception e) {
-//                Log.d("Save", "Fail");
-//            }
-//        });
-//        for (File f : directory.listFiles()) {
-//            System.out.println(f.getAbsolutePath());
-//            System.out.println(f.getName());
-//        }
-//        Glide.with(PhotoDatabaseActivity.this)
-////            .load(mStorageRef.child("webcam/cam1-2019-03-01-083802.jpg"))
-//            .load(mStorageRef.child("webcam/cam1.jpg"))
-//            .diskCacheStrategy(DiskCacheStrategy.DATA)
-//            .into(mid);
-//        Glide.with(PhotoDatabaseActivity.this)
-////            .load(mStorageRef.child("webcam/cam3-2019-03-01-083802.jpg"))
-//            .load(mStorageRef.child("webcam/cam3.jpg"))
-//            .diskCacheStrategy(DiskCacheStrategy.DATA)
-//            .into(bot);
 
         Log.d("glide coming thru", "wala");
     }
 
     @Override
     public void onClick(View v) {
+        index = indices.get(v);
+        System.out.println(index);
         AlertDialog dialog = builder.create();
         dialog.show();
     }
@@ -198,6 +185,8 @@ public class PhotoDatabaseActivity extends AppCompatActivity implements View.OnC
             Glide.with(getContext())
                     .load(mStorageRef.child(items.get(position)))
                     .into((ImageView) convertView);
+
+            indices.put(convertView, position);
 
             return convertView;
         }

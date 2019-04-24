@@ -97,7 +97,7 @@ public class MenuActivity extends AppCompatActivity
     int id = item.getItemId();
 
     if (id == R.id.nav_camera) {
-      startActivity(new Intent(MenuActivity.this, CameraActivity.class));
+      startActivity(new Intent(MenuActivity.this, NotificationsActivity.class));
     } else if (id == R.id.nav_gallery) {
       startActivity(new Intent(MenuActivity.this, PhotoDatabaseActivity.class));
     } else if (id == R.id.nav_examine) {
@@ -107,7 +107,8 @@ public class MenuActivity extends AppCompatActivity
     } else if (id == R.id.nav_manage) {
       startActivity(new Intent(MenuActivity.this, NewDiagnosisActivity.class));
 
-    } else if (id == R.id.nav_share) {
+    } else if (id == R.id.nav_notifications) {
+      startActivity(new Intent(MenuActivity.this, NotificationsActivity.class));
 
     } else if (id == R.id.nav_send) {
 

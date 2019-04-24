@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="derminators.github.com.derminosity">
+
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <!-- To auto-complete the email text field in the login form with the user's emails -->
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
@@ -37,12 +38,16 @@
             android:exported="true"
             android:label="@string/title_activity_menu"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".CameraActivity" />
+        <activity
+            android:name=".NotificationsActivity"
+            android:exported="true" />
         <activity
             android:name=".ProgressionReportActivity"
             android:label="@string/title_activity_progression_report"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".BlobDetectionActivity"></activity>
+        <activity android:name=".BlobDetectionActivity" />
+        <activity android:name=".BodyScanViewActivity"
+            android:exported="true" ></activity>
     </application>
 
 </manifest>

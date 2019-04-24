@@ -18,6 +18,7 @@ import android.widget.ImageView;
 import android.widget.ListView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.module.AppGlideModule;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -60,7 +61,7 @@ public class PhotoDatabaseActivity extends AppCompatActivity implements View.OnC
         setContentView(R.layout.activity_photo_database);
 
         directory = this.getFilesDir();
-//        Log.d("File path", directory.getAbsolutePath());
+        Log.d("File path", directory.getAbsolutePath());
 
         initializeViews();
 
@@ -82,32 +83,30 @@ public class PhotoDatabaseActivity extends AppCompatActivity implements View.OnC
 
             @Override
             public void onClick(View v) {
-        Log.d("please work", "button clicked");
+                Log.d("please work", "button clicked");
 
-        Log.d("mStorageRef", "detected!");
+                downloadImage(mStorageRef);
 
-        downloadImage(mStorageRef);
-
-        try {
-            File localFile = File.createTempFile("images", "jpg");
-            mStorageRef.getFile(localFile).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
-                public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
-                    System.out.println("successfully download the byte blob!");
-            // Successfully downloaded data to local file
-            // ...
-                }
-            }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception exception) {
-                System.out.println("F A I L :P");
-              // Handle failed download
-              // ...
-                }
-        });
-        } catch (IOException e) {
-          e.printStackTrace();
-        }
-              }
+    //        try {
+    //            File localFile = File.createTempFile("images", "jpg");
+    //            mStorageRef.getFile(localFile).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
+    //                public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
+    //                    System.out.println("successfully download the byte blob!");
+    //            // Successfully downloaded data to local file
+    //            // ...
+    //                }
+    //            }).addOnFailureListener(new OnFailureListener() {
+    //            @Override
+    //            public void onFailure(@NonNull Exception exception) {
+    //                System.out.println("F A I L :P");
+    //              // Handle failed download
+    //              // ...
+    //                }
+    //        });
+    //        } catch (IOException e) {
+    //          e.printStackTrace();
+    //        }
+            }
         });
     }
 
@@ -184,6 +183,8 @@ public class PhotoDatabaseActivity extends AppCompatActivity implements View.OnC
 
             Glide.with(getContext())
                     .load(mStorageRef.child(items.get(position)))
+                    .diskCacheStrategy(DiskCacheStrategy.NONE)
+                    .skipMemoryCache(true)
                     .into((ImageView) convertView);
 
             indices.put(convertView, position);

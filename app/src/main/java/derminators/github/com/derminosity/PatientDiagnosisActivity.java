@@ -50,6 +50,8 @@ public class PatientDiagnosisActivity extends AppCompatActivity {
 
         currentUser = mAuth.getCurrentUser();
 
+        Log.d("User", currentUser.getEmail());
+
         listView = findViewById(R.id.listView_patientDiagnosis_patients);
         patientEmail = findViewById(R.id.editText_patientDiagnosis_email);
         patientButton = findViewById(R.id.button_patientDiagnosis_submit);
@@ -61,6 +63,8 @@ public class PatientDiagnosisActivity extends AppCompatActivity {
             }
         });
 
+        aList = new ArrayList<>();
+
         populateActivity();
     }
 
@@ -68,15 +72,19 @@ public class PatientDiagnosisActivity extends AppCompatActivity {
         final String email = patientEmail.getText().toString();
 
         DocumentReference docRef = db.collection("doctor").document(currentUser.getEmail());
-        docRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-            @Override
-            public void onSuccess(DocumentSnapshot documentSnapshot) {
-                Doctor doctor = documentSnapshot.toObject(Doctor.class);
-                doctor.addPatient(email);
-                currDoctor = doctor;
-            }
-        });
-        docRef.set(currDoctor);
+//        docRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+//            @Override
+//            public void onSuccess(DocumentSnapshot documentSnapshot) {
+//                Doctor doctor = documentSnapshot.toObject(Doctor.class);
+//                doctor.addPatient(email);
+//                currDoctor = doctor;
+//            }
+//        });
+
+        patients.add(email);
+        Map<String, Object> map = new HashMap<>();
+        map.put("patients", patients);
+        docRef.set(map);
 
         HashMap<String, String> hm = new HashMap<>();
         hm.put("listview_title", email);
@@ -95,29 +103,31 @@ public class PatientDiagnosisActivity extends AppCompatActivity {
         docRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
             public void onSuccess(DocumentSnapshot documentSnapshot) {
-                currDoctor = documentSnapshot.toObject(Doctor.class);
+//                currDoctor = documentSnapshot.toObject(Doctor.class);
+
+//                patients = currDoctor.getPatients();
+//                patients = (List<String>) documentSnapshot.getData().get("patients");
+                patients.add("testUser1@example.com");
+                patients.add("testUser2@example.com");
+                patients.add("testUser3@example.com");
+
+                if (!patients.isEmpty()) {
+                    Object[] patientNames = patients.toArray();
+
+                    for (int i = 0; i < patientNames.length; i++) {
+                        HashMap<String, String> hm = new HashMap<>();
+                        hm.put("listview_title", (String) patientNames[i]);
+                        hm.put("listview_description", "New patient!");
+                        hm.put("listview_image", Integer.toString(R.drawable.pc));
+                        aList.add(hm);
+                    }
+
+                    String[] from = {"listview_image", "listview_title", "listview_description"};
+                    int[] to = {R.id.listview_image, R.id.listview_item_title, R.id.listview_item_short_description};
+                    SimpleAdapter simpleAdapter = new SimpleAdapter(getBaseContext(), aList, R.layout.list_patient, from, to);
+                    listView.setAdapter(simpleAdapter);
+                }
             }
         });
-
-        aList = new ArrayList<>();
-
-        patients = currDoctor.getPatients();
-
-        if (!patients.isEmpty()) {
-            String[] patientNames = (String[]) patients.toArray();
-
-            for (int i = 0; i < patientNames.length; i++) {
-                HashMap<String, String> hm = new HashMap<>();
-                hm.put("listview_title", patientNames[i]);
-                hm.put("listview_description", "New patient!");
-                hm.put("listview_image", Integer.toString(R.drawable.pc));
-                aList.add(hm);
-            }
-
-            String[] from = {"listview_image", "listview_title", "listview_description"};
-            int[] to = {R.id.listview_image, R.id.listview_item_title, R.id.listview_item_short_description};
-            SimpleAdapter simpleAdapter = new SimpleAdapter(getBaseContext(), aList, R.layout.list_patient, from, to);
-            listView.setAdapter(simpleAdapter);
-        }
     }
 }

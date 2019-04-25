@@ -2,9 +2,8 @@ package derminators.github.com.derminosity;
 
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -14,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 
@@ -26,11 +26,12 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.storage.FileDownloadTask;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
 import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -42,13 +43,10 @@ public class PhotoDatabaseActivity extends AppCompatActivity implements View.OnC
 
     private ListView listView;
     private List<String> images;
+    private EditText patientEmail;
 
     private Map<View, Integer> indices;
     private int index;
-
-//    private ImageView top;
-//    private ImageView mid;
-//    private ImageView bot;
 
     File directory;
     File file = null;
@@ -78,7 +76,7 @@ public class PhotoDatabaseActivity extends AppCompatActivity implements View.OnC
     }
 
     private void populateActivity() {
-        Button downloadButton = findViewById(R.id.button2);
+        Button downloadButton = findViewById(R.id.button_photoDB_download);
         downloadButton.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -86,26 +84,6 @@ public class PhotoDatabaseActivity extends AppCompatActivity implements View.OnC
                 Log.d("please work", "button clicked");
 
                 downloadImage(mStorageRef);
-
-    //        try {
-    //            File localFile = File.createTempFile("images", "jpg");
-    //            mStorageRef.getFile(localFile).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
-    //                public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
-    //                    System.out.println("successfully download the byte blob!");
-    //            // Successfully downloaded data to local file
-    //            // ...
-    //                }
-    //            }).addOnFailureListener(new OnFailureListener() {
-    //            @Override
-    //            public void onFailure(@NonNull Exception exception) {
-    //                System.out.println("F A I L :P");
-    //              // Handle failed download
-    //              // ...
-    //                }
-    //        });
-    //        } catch (IOException e) {
-    //          e.printStackTrace();
-    //        }
             }
         });
     }
@@ -130,8 +108,27 @@ public class PhotoDatabaseActivity extends AppCompatActivity implements View.OnC
                     }
                 });
 
-                Intent i = new Intent(PhotoDatabaseActivity.this, BlobDetectionActivity.class);
-                startActivity(i);
+                String email = patientEmail.getText().toString();
+                Uri uploadFile = Uri.fromFile(file);
+                String date = new SimpleDateFormat("dd-MM-yyyy").format(new Date());
+                final StorageReference ref = mStorageRef.child(email + "/cam" + index + "/" + date + ".jpg");
+                UploadTask uploadTask = ref.putFile(uploadFile);
+                uploadTask.addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception exception) {
+                        // Handle unsuccessful uploads
+                        Log.d("Upload", "Failed");
+                    }
+                }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                    @Override
+                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                        // taskSnapshot.getMetadata() contains file metadata such as size, content-type, etc.
+                        // ...
+                        Log.d("Upload", "Successful");
+                    }
+                });
+//                Intent i = new Intent(PhotoDatabaseActivity.this, BlobDetectionActivity.class);
+//                startActivity(i);
                 }
             })
             .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -141,6 +138,7 @@ public class PhotoDatabaseActivity extends AppCompatActivity implements View.OnC
             });
 
         listView = findViewById(R.id.listView_photoDB_images);
+        patientEmail = findViewById(R.id.editText_photoDB_email);
 
         indices = new HashMap<>();
 

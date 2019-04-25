@@ -101,15 +101,13 @@ public class MenuActivity extends AppCompatActivity
     } else if (id == R.id.nav_gallery) {
       startActivity(new Intent(MenuActivity.this, PhotoDatabaseActivity.class));
     } else if (id == R.id.nav_examine) {
-      startActivity(new Intent(MenuActivity.this, BlobDetectionActivity.class));
+      startActivity(new Intent(MenuActivity.this, NewDiagnosisActivity.class));
     } else if (id == R.id.nav_slideshow) {
       startActivity(new Intent(MenuActivity.this, ProgressionReportActivity.class));
     } else if (id == R.id.nav_manage) {
       startActivity(new Intent(MenuActivity.this, NewDiagnosisActivity.class));
-
     } else if (id == R.id.nav_notifications) {
       startActivity(new Intent(MenuActivity.this, NotificationsActivity.class));
-
     } else if (id == R.id.nav_send) {
 
     }

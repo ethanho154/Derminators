@@ -25,6 +25,10 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+
 public class SignUpActivity extends AppCompatActivity implements View.OnClickListener {
     FirebaseAuth mAuth = FirebaseAuth.getInstance();
     FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -209,7 +213,10 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
 
     private void saveData(String uid, String email, String firstName, String lastName, String userStatus, String hospital) {
         if (userStatus.equals("Doctor")) {
-            Doctor doctor = new Doctor(uid, firstName, lastName, hospital);
+            Map<String, Object> doctor = new HashMap<>();
+            doctor.put("patients", new ArrayList<String>());
+
+//            Doctor doctor = new Doctor(uid, firstName, lastName, hospital, new ArrayList<String>());
             db.collection("doctors").document(email)
                 .set(doctor)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {

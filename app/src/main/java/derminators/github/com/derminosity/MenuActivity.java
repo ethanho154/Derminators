@@ -101,7 +101,7 @@ public class MenuActivity extends AppCompatActivity
     } else if (id == R.id.nav_gallery) {
       startActivity(new Intent(MenuActivity.this, PhotoDatabaseActivity.class));
     } else if (id == R.id.nav_examine) {
-      startActivity(new Intent(MenuActivity.this, NewDiagnosisActivity.class));
+      startActivity(new Intent(MenuActivity.this, PatientDiagnosisActivity.class));
     } else if (id == R.id.nav_slideshow) {
       startActivity(new Intent(MenuActivity.this, ProgressionReportActivity.class));
     } else if (id == R.id.nav_manage) {

@@ -2,8 +2,12 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="derminators.github.com.derminosity">
 
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <!-- To auto-complete the email text field in the login form with the user's emails -->
+    <uses-permission android:name="android.permission.CAMERA"/>
+    <uses-feature android:name="android.hardware.camera"/>
+    <uses-feature android:name="android.hardware.camera.autofocus"/>
+    <uses-feature android:name="android.hardware.camera.front"/>
+    <uses-feature android:name="android.hardware.camera.front.autofocus"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" /> <!-- To auto-complete the email text field in the login form with the user's emails -->
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
     <uses-permission android:name="android.permission.READ_PROFILE" />
     <uses-permission android:name="android.permission.READ_CONTACTS" />
@@ -15,6 +19,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".PatientDiagnosisActivity"></activity>
         <activity android:name=".SignUpActivity" />
         <activity android:name=".MarkImageActivity" />
         <activity
@@ -46,8 +51,10 @@
             android:label="@string/title_activity_progression_report"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".BlobDetectionActivity" />
-        <activity android:name=".BodyScanViewActivity"
-            android:exported="true" ></activity>
+        <activity android:name=".ColorBlobDetectionActivity" />
+        <activity
+            android:name=".BodyScanViewActivity"
+            android:exported="true" />
     </application>
 
 </manifest>
